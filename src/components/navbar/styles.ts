@@ -18,7 +18,6 @@ export const styles = StyleSheet.create({
         color: "#ffffff",
         fontSize: 18,
         fontWeight: "bold",
-        position: "absolute",
         left: 0,
         right: 0,
         textAlign: "center",
