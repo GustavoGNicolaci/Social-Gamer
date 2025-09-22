@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Alert} from 'react-native';
 import { router } from 'expo-router';
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
+import { Navbar } from '@/components/navbar';
 
 export default function Index() {
 
@@ -21,6 +22,7 @@ export default function Index() {
 
     return (
         <View>
+            <Navbar />
             <Text style={styles.title}>Bem-vindo ao Social Gamer!</Text>
             <Text> Olá, {nome} </Text>
             <Input placeholder="Digite algo..." onChangeText={setNome} />
