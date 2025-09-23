@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, Platform } from "react-native";
 
 const { width, height } = Dimensions.get('window');
 
@@ -12,7 +12,10 @@ export const styles = StyleSheet.create({
     },
     scrollContent: {
         flexGrow: 1,
-        paddingBottom: 20,
+        paddingBottom: Platform.OS === 'ios' ? 30 : 20, 
+    },
+    safeArea: {
+        flex: 1,
     },
     welcomeSection: {
         padding: 20,
@@ -187,8 +190,8 @@ export const webStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#0f0f0f',
-        maxWidth: 1200, 
-        marginHorizontal: 'auto', 
+        maxWidth: 1200,
+        marginHorizontal: 'auto',
         width: '100%',
     },
 });
