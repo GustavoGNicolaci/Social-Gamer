@@ -1,41 +1,102 @@
+// app/index.tsx
 import React from 'react';
-import { useState } from 'react';
-import { View, Text, StyleSheet, Alert} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { router } from 'expo-router';
-import { Button } from '@/components/button';
-import { Input } from '@/components/input';
 import { Navbar } from '@/components/navbar';
+import { styles } from './Styles/homeStyles';
 
-export default function Index() {
+export default function Home() {
+    const featuredGames = [
+        { id: 1, name: 'Valorant', category: 'FPS', players: '2.4M' },
+        { id: 2, name: 'League of Legends', category: 'MOBA', players: '1.8M' },
+        { id: 3, name: 'Fortnite', category: 'Battle Royale', players: '3.1M' },
+        { id: 4, name: 'CS:GO', category: 'FPS', players: '1.5M' },
+    ];
 
-    const [nome, setNome] = useState("");
-
-    function handlePress() {
-        Alert.alert("Botão pressionado!", `Olá, ${nome}`);
-        console.log("Botão pressionado!", `Olá, ${nome}`);
-    }
-
-    function handleNavigate() {
-        router.navigate('/dashbord');
-    }
-
+    const recentActivities = [
+        { id: 1, user: 'JoãoSilva', action: 'adicionou um novo amigo', time: '5 min' },
+        { id: 2, user: 'MariaGamer', action: 'concluiu uma missão', time: '15 min' },
+        { id: 3, user: 'PedroPro', action: 'atingiu novo rank', time: '1 h' },
+    ];
 
     return (
-        <View>
+        <View style={styles.container}>
             <Navbar />
-            <Text style={styles.title}>Bem-vindo ao Social Gamer!</Text>
-            <Text> Olá, {nome} </Text>
-            <Input placeholder="Digite algo..." onChangeText={setNome} />
-            <Button title="Pressione-me" onPress={handlePress}/>
-            <Button title="Ir para Dashbord" onPress={handleNavigate}/>
+            
+            <ScrollView 
+                style={styles.scrollView}
+                contentContainerStyle={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
+            >
+                {/* Header de Boas-vindas */}
+                <View style={styles.welcomeSection}>
+                    <Text style={styles.welcomeTitle}>Bem-vindo ao Social Gamer!</Text>
+                    <Text style={styles.welcomeSubtitle}>
+                        Conecte-se com gamers, participe de comunidades e descubra novos jogos
+                    </Text>
+                </View>
+
+                {/* Cards de Estatísticas Rápidas */}
+                <View style={styles.statsContainer}>
+                    <View style={styles.statCard}>
+                        <Text style={styles.statNumber}>1.2M</Text>
+                        <Text style={styles.statLabel}>Gamers Ativos</Text>
+                    </View>
+                    <View style={styles.statCard}>
+                        <Text style={styles.statNumber}>356</Text>
+                        <Text style={styles.statLabel}>Jogos</Text>
+                    </View>
+                    <View style={styles.statCard}>
+                        <Text style={styles.statNumber}>45K</Text>
+                        <Text style={styles.statLabel}>Comunidades</Text>
+                    </View>
+                </View>
+
+                {/* Jogos em Destaque */}
+                <View style={styles.section}>
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.sectionTitle}>Jogos em Destaque</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.seeAllText}>Ver todos</Text>
+                        </TouchableOpacity>
+                    </View>
+                    
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
+                        {featuredGames.map((game) => (
+                            <TouchableOpacity key={game.id} style={styles.gameCard}>
+                                <View style={styles.gameIcon}>
+                                    <Text style={styles.gameIconText}>
+                                        {game.name.substring(0, 2).toUpperCase()}
+                                    </Text>
+                                </View>
+                                <Text style={styles.gameName}>{game.name}</Text>
+                                <Text style={styles.gameCategory}>{game.category}</Text>
+                                <Text style={styles.gamePlayers}>{game.players} jogadores</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </View>
+
+                {/* Atividades Recentes */}
+                <View style={styles.section}>
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.sectionTitle}>Atividades Recentes</Text>
+                    </View>
+                    
+                    {recentActivities.map((activity) => (
+                        <View key={activity.id} style={styles.activityCard}>
+                            <View style={styles.activityContent}>
+                                <Text style={styles.activityText}>
+                                    <Text style={styles.userName}>{activity.user}</Text> {activity.action}
+                                </Text>
+                                <Text style={styles.activityTime}>{activity.time}</Text>
+                            </View>
+                        </View>
+                    ))}
+                </View>
+
+
+            </ScrollView>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        margin: 10,
-    },
-});
