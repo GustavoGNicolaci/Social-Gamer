@@ -1,4 +1,3 @@
-// app/Styles/homeStyles.ts
 import { StyleSheet, Dimensions } from "react-native";
 
 const { width, height } = Dimensions.get('window');
@@ -13,7 +12,7 @@ export const styles = StyleSheet.create({
     },
     scrollContent: {
         flexGrow: 1,
-        paddingBottom: 40,
+        paddingBottom: 20,
     },
     welcomeSection: {
         padding: 20,
@@ -21,7 +20,7 @@ export const styles = StyleSheet.create({
         marginBottom: 20,
     },
     welcomeTitle: {
-        fontSize: width < 375 ? 24 : 28, 
+        fontSize: width < 375 ? 24 : 28,
         fontWeight: 'bold',
         color: '#ffffff',
         marginBottom: 8,
@@ -62,7 +61,7 @@ export const styles = StyleSheet.create({
     },
     section: {
         marginBottom: 30,
-        paddingHorizontal: 16, 
+        paddingHorizontal: 16,
     },
     sectionHeader: {
         flexDirection: 'row',
@@ -81,14 +80,14 @@ export const styles = StyleSheet.create({
         fontWeight: '500',
     },
     horizontalScroll: {
-        marginHorizontal: -4, 
+        marginHorizontal: -4,
     },
     gameCard: {
         backgroundColor: '#1a1a1a',
         padding: 12,
         borderRadius: 12,
         marginHorizontal: 4,
-        width: width < 375 ? 120 : 140, 
+        width: width < 375 ? 120 : 140,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -147,6 +146,50 @@ export const styles = StyleSheet.create({
         fontSize: width < 375 ? 10 : 12,
         color: '#666666',
         marginLeft: 8,
+    },
+    ctaSection: {
+        backgroundColor: '#1a1a1a',
+        margin: 16,
+        padding: 16,
+        borderRadius: 12,
+        alignItems: 'center',
+    },
+    ctaTitle: {
+        fontSize: width < 375 ? 18 : 20,
+        fontWeight: 'bold',
+        color: '#ffffff',
+        marginBottom: 8,
+        textAlign: 'center',
+    },
+    ctaText: {
+        fontSize: width < 375 ? 12 : 14,
+        color: '#cccccc',
+        textAlign: 'center',
+        marginBottom: 16,
+        lineHeight: 18,
+    },
+    ctaButton: {
+        backgroundColor: '#6200ee',
+        paddingHorizontal: 24,
+        paddingVertical: 10,
+        borderRadius: 8,
+        minWidth: 120,
+    },
+    ctaButtonText: {
+        color: '#ffffff',
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+});
+
+export const webStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#0f0f0f',
+        maxWidth: 1200, 
+        marginHorizontal: 'auto', 
+        width: '100%',
     },
 });
 

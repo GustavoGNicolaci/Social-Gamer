@@ -1,28 +1,12 @@
-import { styles } from "./styles";
-import { View, Text, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
+import React from 'react';
+import { useWindowDimensions } from 'react-native';
+import { NavbarWeb } from './NavbarWeb';
+import { NavbarMobile } from './NavbarMobile';
 
 export function Navbar() {
-    const router = useRouter();
+    const { width } = useWindowDimensions();
 
-    function handleNavigate() {
-        router.navigate('/login');
-    }
+    const isMobile = width < 768;
 
-
-    return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={() => router.back()}>
-                <Text style={styles.text}>Menu</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => router.push('/')}>
-                <Text style={styles.title}>Social Gamer</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={handleNavigate}>
-                <Text style={styles.login}>Login</Text>
-            </TouchableOpacity>
-        </View>
-    );
+    return isMobile ? <NavbarMobile /> : <NavbarWeb />;
 }

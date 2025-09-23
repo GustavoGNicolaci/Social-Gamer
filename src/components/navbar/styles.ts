@@ -1,13 +1,18 @@
-import { StyleSheet } from "react-native";
+// components/navbar/styles.ts
+import { StyleSheet, Dimensions } from "react-native";
+
+const { width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
-    container: {
+    // Estilos para Navbar Web
+    webContainer: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         paddingHorizontal: 16,
         paddingVertical: 20,
         backgroundColor: "#6200ee",
+        width: '100%',
     },
     text: {
         color: "#ffffff",
@@ -18,8 +23,6 @@ export const styles = StyleSheet.create({
         color: "#ffffff",
         fontSize: 18,
         fontWeight: "bold",
-        left: 0,
-        right: 0,
         textAlign: "center",
     },
     login: {

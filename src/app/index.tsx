@@ -1,11 +1,14 @@
-// app/index.tsx
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { router } from 'expo-router';
 import { Navbar } from '@/components/navbar';
 import { styles } from './Styles/homeStyles';
+import { useDeviceType } from '../../hooks/useDeviceType';
 
 export default function Home() {
+    const { width } = useWindowDimensions();
+    const { isMobile, isDesktop } = useDeviceType();
+
     const featuredGames = [
         { id: 1, name: 'Valorant', category: 'FPS', players: '2.4M' },
         { id: 2, name: 'League of Legends', category: 'MOBA', players: '1.8M' },
@@ -21,10 +24,14 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
-            <Navbar />
             
-            <ScrollView 
-                style={styles.scrollView}
+            {!isMobile && <Navbar />}
+
+            <ScrollView
+                style={[
+                    styles.scrollView,
+                    isMobile && { marginBottom: 70 }
+                ]}
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
             >
@@ -60,7 +67,7 @@ export default function Home() {
                             <Text style={styles.seeAllText}>Ver todos</Text>
                         </TouchableOpacity>
                     </View>
-                    
+
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
                         {featuredGames.map((game) => (
                             <TouchableOpacity key={game.id} style={styles.gameCard}>
@@ -75,6 +82,7 @@ export default function Home() {
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
+
                 </View>
 
                 {/* Atividades Recentes */}
@@ -82,7 +90,7 @@ export default function Home() {
                     <View style={styles.sectionHeader}>
                         <Text style={styles.sectionTitle}>Atividades Recentes</Text>
                     </View>
-                    
+
                     {recentActivities.map((activity) => (
                         <View key={activity.id} style={styles.activityCard}>
                             <View style={styles.activityContent}>
@@ -95,8 +103,23 @@ export default function Home() {
                     ))}
                 </View>
 
-
+                {/* Call-to-Action para Login */}
+                <View style={styles.ctaSection}>
+                    <Text style={styles.ctaTitle}>Junte-se à comunidade!</Text>
+                    <Text style={styles.ctaText}>
+                        Faça login para conectar-se com amigos, participar de comunidades
+                        e acompanhar suas estatísticas de jogo.
+                    </Text>
+                    <TouchableOpacity
+                        style={styles.ctaButton}
+                        onPress={() => router.push('/login')}
+                    >
+                        <Text style={styles.ctaButtonText}>Fazer Login</Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
+
+            {isMobile && <Navbar />}
         </View>
     );
 }
