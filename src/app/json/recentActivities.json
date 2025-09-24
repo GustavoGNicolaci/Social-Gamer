@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "user": "JoãoSilva",
+        "action": "adicionou um novo amigo",
+        "time": "5 min"
+    },
+    {
+        "id": 2,
+        "user": "MariaGamer",
+        "action": "concluiu uma missão",
+        "time": "15 min"
+    },
+    {
+        "id": 3,
+        "user": "Pedro123",
+        "action": "iniciou uma transmissão ao vivo",
+        "time": "30 min"
+    },
+    {
+        "id": 4,
+        "user": "AnaPlay",
+        "action": "atualizou seu status",
+        "time": "1 h"
+    }
+]

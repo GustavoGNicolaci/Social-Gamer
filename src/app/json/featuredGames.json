@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Valorant",
+        "category": "FPS",
+        "players": "2.4M"
+    },
+    {
+        "id": 2,
+        "name": "League of Legends",
+        "category": "MOBA",
+        "players": "8.2M"
+    },
+    {
+        "id": 3,
+        "name": "Minecraft",
+        "category": "Sandbox",
+        "players": "5.1M"
+    },
+    {
+        "id": 4,
+        "name": "Fortnite",
+        "category": "Battle Royale",
+        "players": "3.9M"
+    },
+    {
+        "id": 5,
+        "name": "Counter-Strike: Global Offensive",
+        "category": "FPS",
+        "players": "1.5M"
+    }
+]

@@ -1,26 +1,47 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Navbar } from '@/components/navbar';
 import { styles } from './Styles/homeStyles';
+import featuredGames from './json/featuredGames.json';
+import recentActivies from './json/recentActivities.json';
+
+interface Game {
+    id: number;
+    name: string;
+    category: string;
+    players: number;
+}
+
+interface Activity {
+    id: number;
+    user: string;
+    action: string;
+    time: string;
+}
 
 export default function Home() {
     const { width } = useWindowDimensions();
+    const [jogos, setJogos] = useState<Game[]>([]);
+    const [atividadesRecentes, setAtividadesRecentes] = useState<Activity[]>([]);
+
+    useEffect(() => {
+        setJogos(
+            featuredGames.map((game) => ({
+                ...game,
+                players: Number(game.players),
+            }))
+        );
+        setAtividadesRecentes(
+            recentActivies.map((activity) => ({
+                ...activity,
+            }))
+        );
+    }, []);
+    
     const isMobile = width < 768;
-
-    const featuredGames = [
-        { id: 1, name: 'Valorant', category: 'FPS', players: '2.4M' },
-        { id: 2, name: 'League of Legends', category: 'MOBA', players: '1.8M' },
-        { id: 3, name: 'Fortnite', category: 'Battle Royale', players: '3.1M' },
-        { id: 4, name: 'CS:GO', category: 'FPS', players: '1.5M' },
-    ];
-
-    const recentActivities = [
-        { id: 1, user: 'JoãoSilva', action: 'adicionou um novo amigo', time: '5 min' },
-        { id: 2, user: 'MariaGamer', action: 'concluiu uma missão', time: '15 min' },
-        { id: 3, user: 'PedroPro', action: 'atingiu novo rank', time: '1 h' },
-    ];
 
     return (
         <SafeAreaView style={styles.container} edges={isMobile ? ['top', 'left', 'right'] : ['top', 'left', 'right', 'bottom']}>
@@ -91,7 +112,7 @@ export default function Home() {
                             <Text style={styles.sectionTitle}>Atividades Recentes</Text>
                         </View>
 
-                        {recentActivities.map((activity) => (
+                        {atividadesRecentes.map((activity) => (
                             <View key={activity.id} style={styles.activityCard}>
                                 <View style={styles.activityContent}>
                                     <Text style={styles.activityText}>
