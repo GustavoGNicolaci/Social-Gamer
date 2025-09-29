@@ -2,43 +2,67 @@
     {
         "id": 1,
         "name": "Valorant",
-        "category": "FPS",
-        "description": "Um jogo de tiro tático em primeira pessoa que combina habilidades únicas com tiroteio preciso. Partidas 5v5 emocionantes.",
-        "rating": 4.8
+        "category": "FPS Tático",
+        "description": "Valorant é um jogo de tiro tático em primeira pessoa que combina habilidades únicas com tiroteio preciso. Partidas 5v5 emocionantes em diversos mapas estratégicos. Desenvolvido pela Riot Games, oferece uma experiência competitiva intensa com personagens com habilidades especiais.",
+        "rating": 4.8,
+        "developer": "Riot Games",
+        "releaseYear": 2020,
+        "platforms": ["PC"],
+        "genres": ["FPS", "Tático", "Competitivo"]
     },
     {
         "id": 2,
         "name": "League of Legends",
         "category": "MOBA",
-        "description": "O MOBA mais popular do mundo com mais de 140 campeões. Estratégia em tempo real e batalhas épicas 5v5.",
-        "rating": 4.6
+        "description": "O MOBA mais popular do mundo com mais de 140 campeões. Estratégia em tempo real e batalhas épicas 5v5. Com constantes atualizações e um cenário competitivo global, LoL domina o gênero há mais de uma década.",
+        "rating": 4.6,
+        "developer": "Riot Games",
+        "releaseYear": 2009,
+        "platforms": ["PC"],
+        "genres": ["MOBA", "Estratégia", "Competitivo"]
     },
     {
         "id": 3,
         "name": "Minecraft",
         "category": "Sandbox",
-        "description": "Mundo aberto onde você pode construir, explorar e sobreviver. Criatividade ilimitada em um universo de blocos.",
-        "rating": 4.9
+        "description": "Mundo aberto onde você pode construir, explorar e sobreviver. Criatividade ilimitada em um universo de blocos. Desde simples casas a complexas redstone circuits, Minecraft oferece liberdade total para criar e explorar.",
+        "rating": 4.9,
+        "developer": "Mojang Studios",
+        "releaseYear": 2011,
+        "platforms": ["PC", "Console", "Mobile"],
+        "genres": ["Sandbox", "Aventura", "Criatividade"]
     },
     {
         "id": 4,
         "name": "Fortnite",
         "category": "Battle Royale",
-        "description": "Battle Royale gratuito com construção única. Partidas de 100 jogadores em um mapa em constante evolução.",
-        "rating": 4.4
+        "description": "Battle Royale gratuito com construção única. Partidas de 100 jogadores em um mapa em constante evolução. Conhecido por suas colaborações com franquias populares e modo criativo robusto.",
+        "rating": 4.4,
+        "developer": "Epic Games",
+        "releaseYear": 2017,
+        "platforms": ["PC", "Console", "Mobile"],
+        "genres": ["Battle Royale", "Tiro", "Construção"]
     },
     {
         "id": 5,
         "name": "Counter-Strike 2",
         "category": "FPS",
-        "description": "Clássico jogo de tiro tático entre terroristas e contra-terroristas. Precisão e trabalho em equipe são essenciais.",
-        "rating": 4.7
+        "description": "Clássico jogo de tiro tático entre terroristas e contra-terroristas. Precisão e trabalho em equipe são essenciais. A evolução do CS:GO com melhorias gráficas e de jogabilidade.",
+        "rating": 4.7,
+        "developer": "Valve",
+        "releaseYear": 2023,
+        "platforms": ["PC"],
+        "genres": ["FPS", "Tático", "Competitivo"]
     },
     {
         "id": 6,
         "name": "The Witcher 3",
         "category": "RPG",
-        "description": "RPG de mundo aberto aclamado pela crítica. Siga Geralt de Rivia em uma épica jornada de fantasia.",
-        "rating": 4.9
+        "description": "RPG de mundo aberto aclamado pela crítica. Siga Geralt de Rivia em uma épica jornada de fantasia. Com narrativa profunda, mundo vasto e personagens memoráveis.",
+        "rating": 4.9,
+        "developer": "CD Projekt Red",
+        "releaseYear": 2015,
+        "platforms": ["PC", "Console"],
+        "genres": ["RPG", "Mundo Aberto", "Fantasia"]
     }
 ]
