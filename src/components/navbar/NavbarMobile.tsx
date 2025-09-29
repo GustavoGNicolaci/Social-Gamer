@@ -49,7 +49,6 @@ const mobileStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        paddingVertical: 8,
         paddingHorizontal: 4,
         minHeight: 60,
     },

@@ -12,7 +12,6 @@ interface Game {
     id: number;
     name: string;
     category: string;
-    players: number;
 }
 
 interface Activity {
@@ -31,7 +30,6 @@ export default function Home() {
         setJogos(
             featuredGames.map((game) => ({
                 ...game,
-                players: Number(game.players),
             }))
         );
         setAtividadesRecentes(
@@ -100,7 +98,6 @@ export default function Home() {
                                     </View>
                                     <Text style={styles.gameName}>{game.name}</Text>
                                     <Text style={styles.gameCategory}>{game.category}</Text>
-                                    <Text style={styles.gamePlayers}>{game.players} jogadores</Text>
                                 </TouchableOpacity>
                             ))}
                         </ScrollView>
