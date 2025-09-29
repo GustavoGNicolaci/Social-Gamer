@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, useWindowDimensions, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, useWindowDimensions, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Navbar } from '@/components/navbar';
@@ -17,6 +17,7 @@ interface Game {
     releaseYear: number;
     platforms: string[];
     genres: string[];
+    image: string | null;
     saved?: boolean;
 }
 
@@ -41,9 +42,9 @@ export default function Games() {
         if (e) {
             e.stopPropagation();
         }
-        setJogos(prevJogos =>
-            prevJogos.map(game =>
-                game.id === gameId
+        setJogos(prevJogos => 
+            prevJogos.map(game => 
+                game.id === gameId 
                     ? { ...game, saved: !game.saved }
                     : game
             )
@@ -53,7 +54,7 @@ export default function Games() {
     const renderStars = (rating: number) => {
         const stars = [];
         const fullStars = Math.floor(rating);
-
+        
         for (let i = 0; i < 5; i++) {
             if (i < fullStars) {
                 stars.push('⭐');
@@ -61,11 +62,31 @@ export default function Games() {
                 stars.push('☆');
             }
         }
-
+        
         return (
             <Text style={styles.rating}>
                 {stars.join('')} {rating.toFixed(1)}
             </Text>
+        );
+    };
+
+    const renderGameIcon = (game: Game) => {
+        if (game.image) {
+            return (
+                <Image 
+                    source={{ uri: game.image }} 
+                    style={styles.gameImage}
+                    resizeMode="cover"
+                />
+            );
+        }
+        
+        return (
+            <View style={styles.gameIcon}>
+                <Text style={styles.gameIconText}>
+                    {game.name.substring(0, 2).toUpperCase()}
+                </Text>
+            </View>
         );
     };
 
@@ -77,9 +98,9 @@ export default function Games() {
                 <ScrollView
                     style={[
                         styles.scrollView,
-                        isMobile && { marginBottom: 80 }
+                        isMobile && { marginBottom: 100 } // Mais espaço para a navbar mobile
                     ]}
-                    contentContainerStyle={styles.scrollContent}
+                    contentContainerStyle={[styles.scrollContent, { paddingBottom: 20 }]} // Espaço extra no final
                     showsVerticalScrollIndicator={false}
                 >
                     <View style={styles.welcomeSection}>
@@ -91,29 +112,30 @@ export default function Games() {
 
                     <View style={styles.gamesGrid}>
                         {jogos.map((game) => (
-                            <TouchableOpacity
-                                key={game.id}
+                            <TouchableOpacity 
+                                key={game.id} 
                                 style={styles.gameCard}
                                 onPress={() => handleGamePress(game)}
                             >
-                                <View style={styles.cardHeader}>
-                                    <View style={styles.gameIconContainer}>
-                                        <View style={styles.gameIcon}>
-                                            <Text style={styles.gameIconText}>
-                                                {game.name.substring(0, 2).toUpperCase()}
-                                            </Text>
-                                        </View>
-                                    </View>
-                                    <View style={styles.gameInfo}>
-                                        <Text style={styles.gameName}>{game.name}</Text>
-                                        <Text style={styles.gameCategory}>{game.category}</Text>
-                                        {renderStars(game.rating)}
-                                    </View>
+                                <View style={styles.imageContainer}>
+                                    {renderGameIcon(game)}
                                 </View>
+                                
+                                <View style={styles.gameInfo}>
+                                    <Text style={styles.gameName} numberOfLines={1}>
+                                        {game.name}
+                                    </Text>
+                                    <Text style={styles.gameCategory}>{game.category}</Text>
+                                    {renderStars(game.rating)}
 
-                                <View style={styles.gameDetails}>
-                                    <Text style={styles.developer}>{game.developer}</Text>
-                                    <Text style={styles.platforms}>{game.platforms.join(', ')}</Text>
+                                    <View style={styles.gameDetails}>
+                                        <Text style={styles.developer} numberOfLines={1}>
+                                            {game.developer}
+                                        </Text>
+                                        <Text style={styles.platforms} numberOfLines={1}>
+                                            {game.platforms.join(', ')}
+                                        </Text>
+                                    </View>
                                 </View>
 
                                 <TouchableOpacity
@@ -124,7 +146,7 @@ export default function Games() {
                                     onPress={(e) => toggleSaveGame(game.id, e)}
                                 >
                                     <Text style={styles.saveButtonText}>
-                                        {game.saved ? '✓ Na minha lista' : '+ Vou Jogar'}
+                                        {game.saved ? '✓ Na lista' : '+ Vou Jogar'}
                                     </Text>
                                 </TouchableOpacity>
                             </TouchableOpacity>

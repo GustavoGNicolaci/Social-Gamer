@@ -8,7 +8,8 @@
         "developer": "Riot Games",
         "releaseYear": 2020,
         "platforms": ["PC"],
-        "genres": ["FPS", "Tático", "Competitivo"]
+        "genres": ["FPS", "Tático", "Competitivo"],
+        "image": "https://www.riotgames.com/darkroom/1440/8d5c497da1c2eeec8cffa99b01abc64b:5329ca773963a5b739e98e715957ab39/ps-f2p-val-console-launch-16x9.jpg"
     },
     {
         "id": 2,
@@ -19,7 +20,8 @@
         "developer": "Riot Games",
         "releaseYear": 2009,
         "platforms": ["PC"],
-        "genres": ["MOBA", "Estratégia", "Competitivo"]
+        "genres": ["MOBA", "Estratégia", "Competitivo"],
+        "image": "https://pt.egw.news/_next/image?url=https%3A%2F%2Fegw.news%2Fuploads%2Fnews%2F1%2F17%2F1739981305866_1739981305866.webp&w=1920&q=75"
     },
     {
         "id": 3,
@@ -30,7 +32,8 @@
         "developer": "Mojang Studios",
         "releaseYear": 2011,
         "platforms": ["PC", "Console", "Mobile"],
-        "genres": ["Sandbox", "Aventura", "Criatividade"]
+        "genres": ["Sandbox", "Aventura", "Criatividade"],
+        "image": "https://xboxwire.thesourcemediaassets.com/sites/8/2024/05/Hero-bdef2532984d6fcafc40.jpg"
     },
     {
         "id": 4,
@@ -41,7 +44,8 @@
         "developer": "Epic Games",
         "releaseYear": 2017,
         "platforms": ["PC", "Console", "Mobile"],
-        "genres": ["Battle Royale", "Tiro", "Construção"]
+        "genres": ["Battle Royale", "Tiro", "Construção"],
+        "image": "https://cdn1.epicgames.com/offer/fn/FNBR_37-00_C6S4_EGS_Launcher_KeyArt_FNLogo_Carousel_PDP_2560x1440_logo_2560x1440-04348f5d3d52391f572e8c1050ddc737"
     },
     {
         "id": 5,
@@ -52,17 +56,19 @@
         "developer": "Valve",
         "releaseYear": 2023,
         "platforms": ["PC"],
-        "genres": ["FPS", "Tático", "Competitivo"]
+        "genres": ["FPS", "Tático", "Competitivo"],
+        "image": "https://cdn.fastly.steamstatic.com/apps/csgo/images/csgo_react/social/cs2.jpg"
     },
     {
         "id": 6,
-        "name": "The Witcher 3",
+        "name": "The Witcher 3: Wild Hunt",
         "category": "RPG",
         "description": "RPG de mundo aberto aclamado pela crítica. Siga Geralt de Rivia em uma épica jornada de fantasia. Com narrativa profunda, mundo vasto e personagens memoráveis.",
         "rating": 4.9,
         "developer": "CD Projekt Red",
         "releaseYear": 2015,
         "platforms": ["PC", "Console"],
-        "genres": ["RPG", "Mundo Aberto", "Fantasia"]
+        "genres": ["RPG", "Mundo Aberto", "Fantasia"],
+        "image": "https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4MUIuMmHlktOHar3lVl6rY.png"
     }
 ]

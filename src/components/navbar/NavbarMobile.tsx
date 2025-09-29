@@ -11,7 +11,7 @@ export function NavbarMobile() {
         { name: 'Home', route: '/', icon: '🏠' },
         { name: 'Perfil', route: '/profile', icon: '👤' },
         { name: 'Jogos', route: '/games', icon: '🎮' },
-        { name: 'Comunidades', route: '/communities', icon: '👥' },
+        { name: 'Grupos', route: '/communities', icon: '👥' },
         { name: 'Login', route: '/login', icon: '🔐' },
     ];
 

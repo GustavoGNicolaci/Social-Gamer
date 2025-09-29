@@ -51,6 +51,15 @@ export const styles = StyleSheet.create({
         width: '100%',
         minHeight: 180,
     },
+    imageContainer: {
+        width: '100%',
+        height: 120,
+        backgroundColor: '#2a2a2a',
+    },
+    gameImage: {
+        width: '100%',
+        height: '100%',
+    },
     gameIcon: {
         width: 40,
         height: 40,
