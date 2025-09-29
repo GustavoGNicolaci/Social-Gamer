@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, useWindowDimensions, Image } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, useWindowDimensions, Image, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, router } from 'expo-router';
 import { Navbar } from '@/components/navbar';
@@ -26,6 +26,8 @@ export default function GameDetail() {
     const { width } = useWindowDimensions();
     const [game, setGame] = useState<Game | null>(null);
     const [saved, setSaved] = useState(false);
+    const [userRating, setUserRating] = useState(0);
+    const [hasRated, setHasRated] = useState(false);
 
     useEffect(() => {
         const gameFound = featuredGames.find(g => g.id === parseInt(id as string));
@@ -34,6 +36,8 @@ export default function GameDetail() {
                 ...gameFound,
                 saved: false
             });
+            // Carregar avaliação do usuário do localStorage (simulado)
+            loadUserRating();
         }
     }, [id]);
 
@@ -43,22 +47,48 @@ export default function GameDetail() {
         setSaved(prev => !prev);
     };
 
-    const renderStars = (rating: number) => {
-        const stars = [];
-        const fullStars = Math.floor(rating);
+    const loadUserRating = () => {
+        // Simulando carregamento de avaliação do usuário
+        const storedRating = 0; // Valor padrão
+        setUserRating(storedRating);
+        setHasRated(storedRating > 0);
+    };
+
+    const handleRating = (rating: number) => {
+        setUserRating(rating);
+        setHasRated(true);
         
-        for (let i = 0; i < 5; i++) {
-            if (i < fullStars) {
-                stars.push('⭐');
-            } else {
-                stars.push('☆');
-            }
+        Alert.alert('Avaliação registrada!', `Você deu ${rating} estrela(s) para ${game?.name}`);
+    };
+
+    const renderStars = (rating: number, interactive = false, size: 'small' | 'large' = 'small') => {
+        const stars = [];
+        const starSize = size === 'large' ? 32 : 20;
+        
+        for (let i = 1; i <= 5; i++) {
+            stars.push(
+                <TouchableOpacity
+                    key={i}
+                    onPress={() => interactive && handleRating(i)}
+                    disabled={!interactive}
+                    style={styles.starButton}
+                >
+                    <Text style={[styles.star, { fontSize: starSize }]}>
+                        {i <= rating ? '⭐' : '☆'}
+                    </Text>
+                </TouchableOpacity>
+            );
         }
         
         return (
-            <Text style={styles.rating}>
-                {stars.join('')} {rating.toFixed(1)}
-            </Text>
+            <View style={styles.starsContainer}>
+                {stars}
+                {!interactive && (
+                    <Text style={styles.ratingText}>
+                        {rating.toFixed(1)}
+                    </Text>
+                )}
+            </View>
         );
     };
 
@@ -154,6 +184,30 @@ export default function GameDetail() {
                         </View>
                     </View>
 
+                    {/* Avaliação do Usuário */}
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Sua Avaliação</Text>
+                        <View style={styles.ratingSection}>
+                            <Text style={styles.ratingLabel}>
+                                {hasRated ? 'Sua nota:' : 'Dê sua nota:'}
+                            </Text>
+                            {renderStars(userRating, true, 'large')}
+                            {hasRated && (
+                                <TouchableOpacity 
+                                    style={styles.changeRatingButton}
+                                    onPress={() => {
+                                        setHasRated(false)
+                                        setUserRating(0);
+                                    }}
+                                >
+                                    <Text style={styles.changeRatingText}>
+                                        Alterar avaliação
+                                    </Text>
+                                </TouchableOpacity>
+                            )}
+                        </View>
+                    </View>
+
                     <View style={styles.section}>
                         <Text style={styles.sectionTitle}>Gêneros</Text>
                         <View style={styles.genresContainer}>
@@ -187,4 +241,3 @@ export default function GameDetail() {
         </SafeAreaView>
     );
 }
-
