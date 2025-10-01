@@ -153,39 +153,211 @@ export const styles = StyleSheet.create({
     },
 
     searchContainer: {
-        flexDirection: 'row',
-        gap: 12,
-        marginTop: 16,
-        alignItems: 'center',
-    },
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 16,
+    alignItems: 'center',
+},
 
-    searchInputContainer: {
-        flex: 1,
-        backgroundColor: '#2a2a2a',
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: '#333',
-    },
+searchInputContainer: {
+    flex: 1,
+    backgroundColor: '#2a2a2a',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#333',
+},
 
-    searchInput: {
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        color: '#fff',
-        fontSize: 16,
-    },
+searchInput: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    color: '#fff',
+    fontSize: 16,
+},
 
-    filterButton: {
-        backgroundColor: '#6200ee',
-        paddingHorizontal: 20,
-        paddingVertical: 12,
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+filterButton: {
+    backgroundColor: '#333333',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 80,
+},
 
-    filterButtonText: {
-        color: '#fff',
-        fontSize: 14,
-        fontWeight: '600',
-    },
+filterButtonActive: {
+    backgroundColor: '#6200ee',
+    borderColor: '#8133ff',
+},
+
+filterButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '600',
+},
+
+activeFilters: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 12,
+    paddingHorizontal: 8,
+},
+
+activeFiltersText: {
+    color: '#cccccc',
+    fontSize: 14,
+},
+
+clearFiltersText: {
+    color: '#6200ee',
+    fontSize: 14,
+    fontWeight: '500',
+},
+
+resultsInfo: {
+    paddingHorizontal: 20,
+    marginBottom: 16,
+},
+
+resultsText: {
+    color: '#cccccc',
+    fontSize: 14,
+},
+
+// Modal Styles
+modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'flex-end',
+},
+
+modalContent: {
+    backgroundColor: '#1a1a1a',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    maxHeight: '80%',
+},
+
+modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#333',
+},
+
+modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+},
+
+modalClose: {
+    fontSize: 20,
+    color: '#fff',
+    fontWeight: 'bold',
+},
+
+filtersScroll: {
+    maxHeight: 400,
+},
+
+filterSection: {
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#333',
+},
+
+filterSectionTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 12,
+},
+
+filterOptions: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+},
+
+filterOption: {
+    backgroundColor: '#2a2a2a',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#333',
+},
+
+filterOptionSelected: {
+    backgroundColor: '#6200ee',
+    borderColor: '#8133ff',
+},
+
+filterOptionText: {
+    color: '#cccccc',
+    fontSize: 14,
+},
+
+filterOptionTextSelected: {
+    color: '#fff',
+    fontWeight: '500',
+},
+
+modalFooter: {
+    flexDirection: 'row',
+    padding: 20,
+    gap: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#333',
+},
+
+clearFiltersButton: {
+    flex: 1,
+    backgroundColor: '#333333',
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+},
+
+clearFiltersButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '500',
+},
+
+applyFiltersButton: {
+    flex: 1,
+    backgroundColor: '#6200ee',
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+},
+
+applyFiltersButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+},
+
+noResults: {
+    alignItems: 'center',
+    padding: 40,
+},
+
+noResultsText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+},
+
+noResultsSubtext: {
+    color: '#cccccc',
+    fontSize: 14,
+    marginBottom: 20,
+    textAlign: 'center',
+},
 });

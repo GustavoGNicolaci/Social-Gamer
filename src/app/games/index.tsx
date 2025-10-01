@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, useWindowDimensions, Image, TextInput } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, useWindowDimensions, Image, TextInput, Modal, } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Navbar } from '@/components/navbar';
@@ -24,13 +24,16 @@ interface Game {
 
 const GAME_CATEGORIES = gameFilters.categories;
 const PLATFORMS = gameFilters.platforms;
-const RATING_GAMES = gameFilters.ratings;
+const RATING_RANGES = gameFilters.ratings;
 
 export default function Games() {
     const { width } = useWindowDimensions();
     const [jogos, setJogos] = useState<Game[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [showFilters, setShowFilters] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState('Todos');
+    const [selectedPlatform, setSelectedPlatform] = useState('Todos');
+    const [selectedRating, setSelectedRating] = useState(RATING_RANGES[0]);
 
     useEffect(() => {
         setJogos(featuredGames.map(game => ({
@@ -58,11 +61,40 @@ export default function Games() {
         );
     };
 
-    const filteredGames = jogos.filter(game =>
-        game.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        game.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        game.developer.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredGames = jogos.filter(game => {
+        // Filtro de pesquisa
+        const matchesSearch =
+            game.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            game.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            game.developer.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            game.genres.some(genre => genre.toLowerCase().includes(searchQuery.toLowerCase()));
+
+        // Filtro de categoria
+        const matchesCategory = selectedCategory === 'Todos' || game.category === selectedCategory;
+
+        // Filtro de plataforma
+        const matchesPlatform = selectedPlatform === 'Todos' ||
+            game.platforms.some(platform =>
+                platform.toLowerCase().includes(selectedPlatform.toLowerCase())
+            );
+
+        // Filtro de avaliação
+        const matchesRating = game.rating >= selectedRating.min && game.rating <= selectedRating.max;
+
+        return matchesSearch && matchesCategory && matchesPlatform && matchesRating;
+    });
+
+    const clearFilters = () => {
+        setSelectedCategory('Todos');
+        setSelectedPlatform('Todos');
+        setSelectedRating(RATING_RANGES[0]);
+        setSearchQuery('');
+    };
+
+    const hasActiveFilters = selectedCategory !== 'Todos' ||
+        selectedPlatform !== 'Todos' ||
+        selectedRating !== RATING_RANGES[0] ||
+        searchQuery !== '';
 
     const renderStars = (rating: number) => {
         const stars = [];
@@ -129,28 +161,157 @@ export default function Games() {
                         <Text style={styles.welcomeSubtitle}>
                             Descubra jogos incríveis e adicione à sua lista de desejos
                         </Text>
-                        
+
                         {/* Barra de Pesquisa e Filtros */}
                         <View style={styles.searchContainer}>
                             <View style={styles.searchInputContainer}>
                                 <TextInput
                                     style={styles.searchInput}
-                                    placeholder="Pesquisar jogos..."
+                                    placeholder="Pesquisar jogos, categorias, desenvolvedores..."
                                     placeholderTextColor="#888"
                                     value={searchQuery}
                                     onChangeText={setSearchQuery}
                                 />
                             </View>
-                            <TouchableOpacity 
-                                style={styles.filterButton}
-                                onPress={() => setShowFilters(!showFilters)}
+                            <TouchableOpacity
+                                style={[
+                                    styles.filterButton,
+                                    hasActiveFilters && styles.filterButtonActive
+                                ]}
+                                onPress={() => setShowFilters(true)}
                             >
-                                <Text style={styles.filterButtonText}>Filtros</Text>
+                                <Text style={styles.filterButtonText}>
+                                    Filtros {hasActiveFilters && '•'}
+                                </Text>
                             </TouchableOpacity>
                         </View>
+
+                        {/* Filtros Ativos */}
+                        {hasActiveFilters && (
+                            <View style={styles.activeFilters}>
+                                <Text style={styles.activeFiltersText}>Filtros ativos:</Text>
+                                <TouchableOpacity onPress={clearFilters}>
+                                    <Text style={styles.clearFiltersText}>Limpar todos</Text>
+                                </TouchableOpacity>
+                            </View>
+                        )}
                     </View>
 
-                    {/* Catálogo de Jogos */}
+                    {/* Modal de Filtros */}
+                    <Modal
+                        visible={showFilters}
+                        animationType="slide"
+                        transparent={true}
+                        onRequestClose={() => setShowFilters(false)}
+                    >
+                        <View style={styles.modalOverlay}>
+                            <View style={styles.modalContent}>
+                                <View style={styles.modalHeader}>
+                                    <Text style={styles.modalTitle}>Filtros</Text>
+                                    <TouchableOpacity onPress={() => setShowFilters(false)}>
+                                        <Text style={styles.modalClose}>✕</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+                                <ScrollView style={styles.filtersScroll}>
+                                    {/* Filtro por Categoria */}
+                                    <View style={styles.filterSection}>
+                                        <Text style={styles.filterSectionTitle}>Categoria</Text>
+                                        <View style={styles.filterOptions}>
+                                            {GAME_CATEGORIES.map(category => (
+                                                <TouchableOpacity
+                                                    key={category}
+                                                    style={[
+                                                        styles.filterOption,
+                                                        selectedCategory === category && styles.filterOptionSelected
+                                                    ]}
+                                                    onPress={() => setSelectedCategory(category)}
+                                                >
+                                                    <Text style={[
+                                                        styles.filterOptionText,
+                                                        selectedCategory === category && styles.filterOptionTextSelected
+                                                    ]}>
+                                                        {category}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            ))}
+                                        </View>
+                                    </View>
+
+                                    {/* Filtro por Plataforma */}
+                                    <View style={styles.filterSection}>
+                                        <Text style={styles.filterSectionTitle}>Plataforma</Text>
+                                        <View style={styles.filterOptions}>
+                                            {PLATFORMS.map(platform => (
+                                                <TouchableOpacity
+                                                    key={platform}
+                                                    style={[
+                                                        styles.filterOption,
+                                                        selectedPlatform === platform && styles.filterOptionSelected
+                                                    ]}
+                                                    onPress={() => setSelectedPlatform(platform)}
+                                                >
+                                                    <Text style={[
+                                                        styles.filterOptionText,
+                                                        selectedPlatform === platform && styles.filterOptionTextSelected
+                                                    ]}>
+                                                        {platform}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            ))}
+                                        </View>
+                                    </View>
+
+                                    {/* Filtro por Avaliação */}
+                                    <View style={styles.filterSection}>
+                                        <Text style={styles.filterSectionTitle}>Avaliação Mínima</Text>
+                                        <View style={styles.filterOptions}>
+                                            {RATING_RANGES.map((range, index) => (
+                                                <TouchableOpacity
+                                                    key={index}
+                                                    style={[
+                                                        styles.filterOption,
+                                                        selectedRating === range && styles.filterOptionSelected
+                                                    ]}
+                                                    onPress={() => setSelectedRating(range)}
+                                                >
+                                                    <Text style={[
+                                                        styles.filterOptionText,
+                                                        selectedRating === range && styles.filterOptionTextSelected
+                                                    ]}>
+                                                        {range.label}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            ))}
+                                        </View>
+                                    </View>
+                                </ScrollView>
+
+                                <View style={styles.modalFooter}>
+                                    <TouchableOpacity
+                                        style={styles.clearFiltersButton}
+                                        onPress={clearFilters}
+                                    >
+                                        <Text style={styles.clearFiltersButtonText}>Limpar Filtros</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.applyFiltersButton}
+                                        onPress={() => setShowFilters(false)}
+                                    >
+                                        <Text style={styles.applyFiltersButtonText}>Aplicar Filtros</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
+
+                    {/* Contador de Resultados */}
+                    <View style={styles.resultsInfo}>
+                        <Text style={styles.resultsText}>
+                            {filteredGames.length} {filteredGames.length === 1 ? 'jogo encontrado' : 'jogos encontrados'}
+                        </Text>
+                    </View>
+
                     <View style={styles.gamesGrid}>
                         {filteredGames.map((game) => (
                             <TouchableOpacity
@@ -195,6 +356,21 @@ export default function Games() {
                             </TouchableOpacity>
                         ))}
                     </View>
+
+                    {filteredGames.length === 0 && (
+                        <View style={styles.noResults}>
+                            <Text style={styles.noResultsText}>Nenhum jogo encontrado</Text>
+                            <Text style={styles.noResultsSubtext}>
+                                Tente ajustar os filtros ou a pesquisa
+                            </Text>
+                            <TouchableOpacity
+                                style={styles.clearFiltersButton}
+                                onPress={clearFilters}
+                            >
+                                <Text style={styles.clearFiltersButtonText}>Limpar Filtros</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
                 </ScrollView>
 
                 {isMobile && <Navbar />}
