@@ -1,0 +1,72 @@
+{
+    "categories": [
+        "Todos",
+        "FPS Tático",
+        "MOBA",
+        "Sandbox",
+        "Battle Royale",
+        "FPS",
+        "RPG",
+        "Ação",
+        "Aventura",
+        "Estratégia",
+        "Esportes",
+        "Corrida",
+        "Luta",
+        "Simulação",
+        "Indie",
+        "Terror",
+        "Fantasia",
+        "Sci-Fi",
+        "Multijogador",
+        "Cooperativo"
+    ],
+
+    "platforms": [
+        "Todos",
+        "PC",
+        "Console",
+        "Mobile",
+        "PlayStation",
+        "Xbox",
+        "Nintendo"
+    ],
+
+    "ratings": [
+        {
+            "label": "Todos",
+            "min": 0,
+            "max": 5
+        },
+        {
+            "label": "4.5+ Excelente",
+            "min": 4.5,
+            "max": 5
+        },
+        {
+            "label": "4.0+ Muito Bom",
+            "min": 4.0,
+            "max": 5
+        },
+        {
+            "label": "3.0+ Bom",
+            "min": 3.0,
+            "max": 5
+        },
+        {
+            "label": "2.0+ Razoável",
+            "min": 2.0,
+            "max": 5
+        },
+        {
+            "label": "1.0+ Ruim",
+            "min": 1.0,
+            "max": 5
+        },
+        {
+            "label": "0.0+ Péssimo",
+            "min": 0.0,
+            "max": 5
+        }
+    ]
+}

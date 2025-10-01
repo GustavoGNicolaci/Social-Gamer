@@ -6,6 +6,7 @@ import { router } from 'expo-router';
 import { Navbar } from '@/components/navbar';
 import { styles } from '../Styles/gamesStyles';
 import featuredGames from '../json/featuredGames.json';
+import gameFilters from '../json/gameFilters.json';
 
 interface Game {
     id: number;
@@ -20,6 +21,10 @@ interface Game {
     image: string | null;
     saved?: boolean;
 }
+
+const GAME_CATEGORIES = gameFilters.categories;
+const PLATFORMS = gameFilters.platforms;
+const RATING_GAMES = gameFilters.ratings;
 
 export default function Games() {
     const { width } = useWindowDimensions();
