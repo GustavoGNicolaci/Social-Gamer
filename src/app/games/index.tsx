@@ -25,6 +25,7 @@ interface Game {
 const GAME_CATEGORIES = gameFilters.categories;
 const PLATFORMS = gameFilters.platforms;
 const RATING_RANGES = gameFilters.ratings;
+const ITEMS_PER_PAGE = 6;
 
 export default function Games() {
     const { width } = useWindowDimensions();
@@ -34,6 +35,7 @@ export default function Games() {
     const [selectedCategory, setSelectedCategory] = useState('Todos');
     const [selectedPlatform, setSelectedPlatform] = useState('Todos');
     const [selectedRating, setSelectedRating] = useState(RATING_RANGES[0]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         setJogos(featuredGames.map(game => ({
@@ -61,34 +63,40 @@ export default function Games() {
         );
     };
 
+    // Filtragem e busca
     const filteredGames = jogos.filter(game => {
-        // Filtro de pesquisa
         const matchesSearch =
             game.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             game.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
             game.developer.toLowerCase().includes(searchQuery.toLowerCase()) ||
             game.genres.some(genre => genre.toLowerCase().includes(searchQuery.toLowerCase()));
 
-        // Filtro de categoria
         const matchesCategory = selectedCategory === 'Todos' || game.category === selectedCategory;
-
-        // Filtro de plataforma
         const matchesPlatform = selectedPlatform === 'Todos' ||
             game.platforms.some(platform =>
                 platform.toLowerCase().includes(selectedPlatform.toLowerCase())
             );
-
-        // Filtro de avaliação
         const matchesRating = game.rating >= selectedRating.min && game.rating <= selectedRating.max;
 
         return matchesSearch && matchesCategory && matchesPlatform && matchesRating;
     });
+
+    // Cálculos da paginação
+    const totalPages = Math.ceil(filteredGames.length / ITEMS_PER_PAGE);
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const currentGames = filteredGames.slice(startIndex, endIndex);
 
     const clearFilters = () => {
         setSelectedCategory('Todos');
         setSelectedPlatform('Todos');
         setSelectedRating(RATING_RANGES[0]);
         setSearchQuery('');
+        setCurrentPage(1);
+    };
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
     };
 
     const hasActiveFilters = selectedCategory !== 'Todos' ||
@@ -143,6 +151,129 @@ export default function Games() {
         }
     };
 
+    // Controles de paginação
+    const renderPagination = () => {
+        if (totalPages <= 1) return null;
+
+        const pages = [];
+        const maxVisiblePages = isMobile ? 3 : 5;
+
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+        if (endPage - startPage + 1 < maxVisiblePages) {
+            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+
+        // Botão anterior
+        pages.push(
+            <TouchableOpacity
+                key="prev"
+                style={[
+                    styles.pageButton,
+                    currentPage === 1 && styles.pageButtonDisabled
+                ]}
+                onPress={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+            >
+                <Text style={[
+                    styles.pageButtonText,
+                    currentPage === 1 && styles.pageButtonTextDisabled
+                ]}>
+                    ‹
+                </Text>
+            </TouchableOpacity>
+        );
+
+        // Primeira página
+        if (startPage > 1) {
+            pages.push(
+                <TouchableOpacity
+                    key={1}
+                    style={styles.pageButton}
+                    onPress={() => handlePageChange(1)}
+                >
+                    <Text style={styles.pageButtonText}>1</Text>
+                </TouchableOpacity>
+            );
+            if (startPage > 2) {
+                pages.push(
+                    <Text key="ellipsis1" style={styles.pageEllipsis}>...</Text>
+                );
+            }
+        }
+
+        // Páginas
+        for (let i = startPage; i <= endPage; i++) {
+            pages.push(
+                <TouchableOpacity
+                    key={i}
+                    style={[
+                        styles.pageButton,
+                        currentPage === i && styles.pageButtonActive
+                    ]}
+                    onPress={() => handlePageChange(i)}
+                >
+                    <Text style={[
+                        styles.pageButtonText,
+                        currentPage === i && styles.pageButtonTextActive
+                    ]}>
+                        {i}
+                    </Text>
+                </TouchableOpacity>
+            );
+        }
+
+        // Última página
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                pages.push(
+                    <Text key="ellipsis2" style={styles.pageEllipsis}>...</Text>
+                );
+            }
+            pages.push(
+                <TouchableOpacity
+                    key={totalPages}
+                    style={styles.pageButton}
+                    onPress={() => handlePageChange(totalPages)}
+                >
+                    <Text style={styles.pageButtonText}>{totalPages}</Text>
+                </TouchableOpacity>
+            );
+        }
+
+        // Botão próximo
+        pages.push(
+            <TouchableOpacity
+                key="next"
+                style={[
+                    styles.pageButton,
+                    currentPage === totalPages && styles.pageButtonDisabled
+                ]}
+                onPress={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+            >
+                <Text style={[
+                    styles.pageButtonText,
+                    currentPage === totalPages && styles.pageButtonTextDisabled
+                ]}>
+                    ›
+                </Text>
+            </TouchableOpacity>
+        );
+
+        return (
+            <View style={styles.paginationContainer}>
+                <Text style={styles.paginationInfo}>
+                    Página {currentPage} de {totalPages} • {filteredGames.length} jogos
+                </Text>
+                <View style={styles.paginationButtons}>
+                    {pages}
+                </View>
+            </View>
+        );
+    };
+
     return (
         <SafeAreaView style={styles.container} edges={isMobile ? ['top', 'left', 'right'] : ['top', 'left', 'right', 'bottom']}>
             <View style={styles.container}>
@@ -162,7 +293,6 @@ export default function Games() {
                             Descubra jogos incríveis e adicione à sua lista de desejos
                         </Text>
 
-                        {/* Barra de Pesquisa e Filtros */}
                         <View style={styles.searchContainer}>
                             <View style={styles.searchInputContainer}>
                                 <TextInput
@@ -170,7 +300,10 @@ export default function Games() {
                                     placeholder="Pesquisar jogos, categorias, desenvolvedores..."
                                     placeholderTextColor="#888"
                                     value={searchQuery}
-                                    onChangeText={setSearchQuery}
+                                    onChangeText={(text) => {
+                                        setSearchQuery(text);
+                                        setCurrentPage(1); 
+                                    }}
                                 />
                             </View>
                             <TouchableOpacity
@@ -186,7 +319,6 @@ export default function Games() {
                             </TouchableOpacity>
                         </View>
 
-                        {/* Filtros Ativos */}
                         {hasActiveFilters && (
                             <View style={styles.activeFilters}>
                                 <Text style={styles.activeFiltersText}>Filtros ativos:</Text>
@@ -196,7 +328,7 @@ export default function Games() {
                             </View>
                         )}
                     </View>
-
+                    
                     {/* Modal de Filtros */}
                     <Modal
                         visible={showFilters}
@@ -214,7 +346,6 @@ export default function Games() {
                                 </View>
 
                                 <ScrollView style={styles.filtersScroll}>
-                                    {/* Filtro por Categoria */}
                                     <View style={styles.filterSection}>
                                         <Text style={styles.filterSectionTitle}>Categoria</Text>
                                         <View style={styles.filterOptions}>
@@ -225,7 +356,10 @@ export default function Games() {
                                                         styles.filterOption,
                                                         selectedCategory === category && styles.filterOptionSelected
                                                     ]}
-                                                    onPress={() => setSelectedCategory(category)}
+                                                    onPress={() => {
+                                                        setSelectedCategory(category);
+                                                        setCurrentPage(1);
+                                                    }}
                                                 >
                                                     <Text style={[
                                                         styles.filterOptionText,
@@ -238,7 +372,6 @@ export default function Games() {
                                         </View>
                                     </View>
 
-                                    {/* Filtro por Plataforma */}
                                     <View style={styles.filterSection}>
                                         <Text style={styles.filterSectionTitle}>Plataforma</Text>
                                         <View style={styles.filterOptions}>
@@ -249,7 +382,10 @@ export default function Games() {
                                                         styles.filterOption,
                                                         selectedPlatform === platform && styles.filterOptionSelected
                                                     ]}
-                                                    onPress={() => setSelectedPlatform(platform)}
+                                                    onPress={() => {
+                                                        setSelectedPlatform(platform);
+                                                        setCurrentPage(1);
+                                                    }}
                                                 >
                                                     <Text style={[
                                                         styles.filterOptionText,
@@ -262,7 +398,6 @@ export default function Games() {
                                         </View>
                                     </View>
 
-                                    {/* Filtro por Avaliação */}
                                     <View style={styles.filterSection}>
                                         <Text style={styles.filterSectionTitle}>Avaliação Mínima</Text>
                                         <View style={styles.filterOptions}>
@@ -273,7 +408,10 @@ export default function Games() {
                                                         styles.filterOption,
                                                         selectedRating === range && styles.filterOptionSelected
                                                     ]}
-                                                    onPress={() => setSelectedRating(range)}
+                                                    onPress={() => {
+                                                        setSelectedRating(range);
+                                                        setCurrentPage(1);
+                                                    }}
                                                 >
                                                     <Text style={[
                                                         styles.filterOptionText,
@@ -305,15 +443,15 @@ export default function Games() {
                         </View>
                     </Modal>
 
-                    {/* Contador de Resultados */}
                     <View style={styles.resultsInfo}>
                         <Text style={styles.resultsText}>
-                            {filteredGames.length} {filteredGames.length === 1 ? 'jogo encontrado' : 'jogos encontrados'}
+                            Mostrando {currentGames.length} de {filteredGames.length} jogos
+                            {totalPages > 1 && ` • Página ${currentPage} de ${totalPages}`}
                         </Text>
                     </View>
 
                     <View style={styles.gamesGrid}>
-                        {filteredGames.map((game) => (
+                        {currentGames.map((game) => (
                             <TouchableOpacity
                                 key={game.id}
                                 style={getCardStyle()}
@@ -357,7 +495,10 @@ export default function Games() {
                         ))}
                     </View>
 
-                    {filteredGames.length === 0 && (
+                    {/* Controles de Paginação */}
+                    {renderPagination()}
+
+                    {currentGames.length === 0 && (
                         <View style={styles.noResults}>
                             <Text style={styles.noResultsText}>Nenhum jogo encontrado</Text>
                             <Text style={styles.noResultsSubtext}>

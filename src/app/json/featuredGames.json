@@ -70,5 +70,114 @@
         "platforms": ["PC", "Console"],
         "genres": ["RPG", "Mundo Aberto", "Fantasia"],
         "image": "https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4MUIuMmHlktOHar3lVl6rY.png"
+    },
+    {
+        "id": 7,
+        "name": "Among Us",
+        "category": "Multijogador",
+        "description": "Jogo social de dedução e traição. Trabalhe em equipe para completar tarefas ou descubra o impostor. Popularizado por streamers, é perfeito para jogar com amigos.",
+        "rating": 4.3,
+        "developer": "Innersloth",
+        "releaseYear": 2018,
+        "platforms": ["PC", "Mobile", "Console"],
+        "genres": ["Multijogador", "Social", "Dedução"],
+        "image": "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/ncom/software/switch/70010000036098/758ab0b61205081da2466386940752c70e0e5ea43bd39e8b9b13eaa455c69b7e"
+    },
+    {
+        "id": 8,
+        "name": "Genshin Impact",
+        "category": "Aventura",
+        "description": "RPG de ação em mundo aberto com belos gráficos e combate elemental. Explore o vasto mundo de Teyvat e descubra seus segredos. Com atualizações regulares, oferece novas regiões, personagens e eventos.",
+        "rating": 4.5,
+        "developer": "miHoYo",
+        "releaseYear": 2020,
+        "platforms": ["PC", "Mobile", "Console"],
+        "genres": ["Aventura", "RPG", "Mundo Aberto"],
+        "image": "https://cdn1.epicgames.com/offer/879b0d8776ab46a59a129983ba78f0ce/genshintall_1200x1600-4a5697be3925e8cb1f59725a9830cafc"
+    },
+    {
+        "id": 9,
+        "name": "Call of Duty: Warzone",
+        "category": "Battle Royale",
+        "description": "Battle Royale gratuito com ação intensa e gráficos realistas. Parte do universo Call of Duty, oferece jogabilidade fluida e mapas detalhados. Com modos de jogo variados e atualizações constantes.",
+        "rating": 4.2,
+        "developer": "Infinity Ward / Raven Software",
+        "releaseYear": 2020,
+        "platforms": ["PC", "Console"],
+        "genres": ["Battle Royale", "FPS", "Tiro"],
+        "image": "https://image.api.playstation.com/vulcan/ap/rnd/202503/2819/346190abf755e3883d1353fbc8d8ccb7e1acf076f1138d6b.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Apex Legends",
+        "category": "Battle Royale",
+        "description": "Battle Royale gratuito com heróis únicos e habilidades especiais. Partidas rápidas e estratégicas em equipes de três. Conhecido por sua jogabilidade fluida e atualizações regulares.",
+        "rating": 4.4,
+        "developer": "Respawn Entertainment",
+        "releaseYear": 2019,
+        "platforms": ["PC", "Console"],
+        "genres": ["Battle Royale", "FPS", "Heróis"],
+        "image": "https://gmedia.playstation.com/is/image/SIEPDC/apex-legends-listing-thumb-01-ps4-en-29oct20?$facebook$"
+    },
+    {
+        "id": 11,
+        "name": "Rocket League",
+        "category": "Esportes",
+        "description": "Futebol com carros em partidas rápidas e emocionantes. Combinação única de esportes e ação com física realista. Com modos de jogo variados e uma comunidade competitiva ativa.",
+        "rating": 4.6,
+        "developer": "Psyonix",
+        "releaseYear": 2015,
+        "platforms": ["PC", "Console"],
+        "genres": ["Esportes", "Ação", "Multijogador"],
+        "image": "https://cdn1.epicgames.com/offer/9773aa1aa54f4f7b80e44bef04986cea/EGS_RocketLeague_PsyonixLLC_S1_2560x1440-4c231557ef0a0626fbb97e0bd137d837"
+    },
+    {
+        "id": 12,
+        "name": "Hollow Knight",
+        "category": "Indie",
+        "description": "Metroidvania aclamado pela crítica com arte desenhada à mão e trilha sonora imersiva. Explore um vasto mundo subterrâneo cheio de segredos e desafios. Conhecido por sua jogabilidade desafiadora e atmosfera única.",
+        "rating": 4.8,
+        "developer": "Team Cherry",
+        "releaseYear": 2017,
+        "platforms": ["PC", "Console"],
+        "genres": ["Indie", "Aventura", "Metroidvania"],
+        "image": "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000003208/4643fb058642335c523910f3a7910575f56372f612f7c0c9a497aaae978d3e51"
+    },
+    {
+        "id": 13,
+        "name": "Dead by Daylight",
+        "category": "Terror",
+        "description": "Jogo de terror assimétrico onde um jogador é o assassino e os outros são sobreviventes. Trabalhe em equipe para escapar ou caçar. Com uma variedade de assassinos icônicos e sobreviventes jogáveis.",
+        "rating": 4.1,
+        "developer": "Behaviour Interactive",
+        "releaseYear": 2016,
+        "platforms": ["PC", "Console"],
+        "genres": ["Terror", "Multijogador", "Sobrevivência"],
+        "image": "https://cdn1.epicgames.com/spt-assets/2b2299be8ae84d679d4dc57c55af1510/dead-by-daylight-1hg3x.jpg"
+    },
+    {
+        "id": 14,
+        "name": "Cyberpunk 2077",
+        "category": "RPG",
+        "description": "RPG de mundo aberto em um futuro distópico com narrativa profunda e personalização de personagem. Explore a cidade de Night City e tome decisões que afetam o mundo ao seu redor. Após um lançamento conturbado, recebeu várias atualizações que melhoraram significativamente a experiência do jogo.",
+        "rating": 4.0,
+        "developer": "CD Projekt Red",
+        "releaseYear": 2020,
+        "platforms": ["PC", "Console"],
+        "genres": ["RPG", "Mundo Aberto", "Futuro"],
+        "image": "https://image.api.playstation.com/vulcan/ap/rnd/202111/3013/bxSj4jO0KBqUgAbH3zuNjCje.jpg?w=440"
+    },
+    {
+        "id": 15,
+        "name": "Red Dead Redemption 2",
+        "category": "Aventura",
+        "description": "Aventura épica no Velho Oeste com uma narrativa rica e mundo aberto. Junte-se a Arthur Morgan e a gangue Van der Linde em uma luta pela sobrevivência. Conhecido por seus gráficos impressionantes e jogabilidade imersiva.",
+        "rating": 4.9,
+        "developer": "Rockstar Games",
+        "releaseYear": 2018,
+        "platforms": ["PC", "Console"],
+        "genres": ["Aventura", "Ação", "Mundo Aberto"],
+        "image": "https://cdn1.epicgames.com/b30b6d1b4dfd4dcc93b5490be5e094e5/offer/RDR2476298253_Epic_Games_Wishlist_RDR2_2560x1440_V01-2560x1440-2a9ebe1f7ee202102555be202d5632ec.jpg"
     }
+
 ]
