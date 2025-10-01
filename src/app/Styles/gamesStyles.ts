@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
 
-    welcomeSection: { 
+    welcomeSection: {
         padding: 20,
         backgroundColor: '#1a1a1a',
         marginBottom: 20,
@@ -152,4 +152,40 @@ export const styles = StyleSheet.create({
         width: (width - 32 - 32) / 3,
     },
 
+    searchContainer: {
+        flexDirection: 'row',
+        gap: 12,
+        marginTop: 16,
+        alignItems: 'center',
+    },
+
+    searchInputContainer: {
+        flex: 1,
+        backgroundColor: '#2a2a2a',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#333',
+    },
+
+    searchInput: {
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        color: '#fff',
+        fontSize: 16,
+    },
+
+    filterButton: {
+        backgroundColor: '#6200ee',
+        paddingHorizontal: 20,
+        paddingVertical: 12,
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    filterButtonText: {
+        color: '#fff',
+        fontSize: 14,
+        fontWeight: '600',
+    },
 });

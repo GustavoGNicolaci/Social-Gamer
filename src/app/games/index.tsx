@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, useWindowDimensions, Image } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, useWindowDimensions, Image, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Navbar } from '@/components/navbar';
@@ -24,6 +24,8 @@ interface Game {
 export default function Games() {
     const { width } = useWindowDimensions();
     const [jogos, setJogos] = useState<Game[]>([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [showFilters, setShowFilters] = useState(false);
 
     useEffect(() => {
         setJogos(featuredGames.map(game => ({
@@ -50,6 +52,12 @@ export default function Games() {
             )
         );
     };
+
+    const filteredGames = jogos.filter(game =>
+        game.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        game.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        game.developer.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     const renderStars = (rating: number) => {
         const stars = [];
@@ -116,10 +124,30 @@ export default function Games() {
                         <Text style={styles.welcomeSubtitle}>
                             Descubra jogos incríveis e adicione à sua lista de desejos
                         </Text>
+                        
+                        {/* Barra de Pesquisa e Filtros */}
+                        <View style={styles.searchContainer}>
+                            <View style={styles.searchInputContainer}>
+                                <TextInput
+                                    style={styles.searchInput}
+                                    placeholder="Pesquisar jogos..."
+                                    placeholderTextColor="#888"
+                                    value={searchQuery}
+                                    onChangeText={setSearchQuery}
+                                />
+                            </View>
+                            <TouchableOpacity 
+                                style={styles.filterButton}
+                                onPress={() => setShowFilters(!showFilters)}
+                            >
+                                <Text style={styles.filterButtonText}>Filtros</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
 
+                    {/* Catálogo de Jogos */}
                     <View style={styles.gamesGrid}>
-                        {jogos.map((game) => (
+                        {filteredGames.map((game) => (
                             <TouchableOpacity
                                 key={game.id}
                                 style={getCardStyle()}
