@@ -72,25 +72,6 @@ export default function Home() {
         );
     };
 
-    const renderStars = (rating: number) => {
-        const stars = [];
-        const fullStars = Math.floor(rating);
-
-        for (let i = 0; i < 5; i++) {
-            if (i < fullStars) {
-                stars.push('⭐');
-            } else {
-                stars.push('☆');
-            }
-        }
-
-        return (
-            <Text style={styles.rating}>
-                {stars.join('')} {rating.toFixed(1)}
-            </Text>
-        );
-    };
-
     return (
         <SafeAreaView style={styles.container} edges={isMobile ? ['top', 'left', 'right'] : ['top', 'left', 'right', 'bottom']}>
             <View style={styles.container}>
@@ -196,7 +177,6 @@ export default function Home() {
                                     <View style={styles.gameInfo}>
                                         <Text style={styles.gameName} numberOfLines={1}>{game.name}</Text>
                                         <Text style={styles.gameCategory}>{game.category}</Text>
-                                        {renderStars(game.rating)}
                                         <View style={styles.gameDetails}>
                                             <Text style={styles.developer} numberOfLines={1}>
                                                 {game.developer}
