@@ -137,13 +137,6 @@ export default function GameDetail() {
                     contentContainerStyle={[styles.scrollContent, styles.scrollContent]}
                     showsVerticalScrollIndicator={false}
                 >
-                    <TouchableOpacity 
-                        style={styles.backButton} 
-                        onPress={() => router.back()}
-                    >
-                        <Text style={styles.backButtonText}>← Voltar para Jogos</Text>
-                    </TouchableOpacity>
-
                     {/* Header com Imagem */}
                     <View style={styles.header}>
                         {renderGameHeader(game)}
