@@ -247,6 +247,9 @@ export const styles = StyleSheet.create({
         marginTop: 8,
         paddingVertical: 8,
         paddingHorizontal: 16,
+        borderRadius: 6,
+        borderWidth: 1,
+        borderColor: '#6200ee',
     },
 
     changeRatingText: {
@@ -430,6 +433,26 @@ export const styles = StyleSheet.create({
         marginHorizontal: 8,
         width: 20,
         textAlign: 'center',
+    },
+
+    ratingActions: {
+        flexDirection: 'row',
+        gap: 12,
+        marginTop: 8,
+    },
+
+    removeRatingButton: {
+        backgroundColor: '#6200ee',
+        marginTop: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 6,
+    },
+
+    removeRatingText: {
+        color: '#ffffff',
+        fontSize: 14,
+        fontWeight: '600',
     },
 
 });

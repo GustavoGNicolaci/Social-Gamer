@@ -75,6 +75,16 @@ export default function GameDetail() {
         setHasRated(storedRating > 0);
     };
 
+    const removeRating = () => {
+        setReviews(prev => prev.filter(review => review.userId !== currentUser.id));
+
+        setUserRating(0);
+        setHasRated(false);
+        setShowReviewForm(false);
+
+        Alert.alert('Sucesso!', 'Sua avaliação foi removida.');
+    };
+
     const loadReviews = () => {
         // Simulando reviews existentes
         const mockReviews: Review[] = [
@@ -152,14 +162,14 @@ export default function GameDetail() {
         setReviews(prev => [newReview, ...prev]);
         setReviewComment('');
         setShowReviewForm(false);
-        setCurrentPage(1); // Voltar para a primeira página após nova review
-        
+        setCurrentPage(1);
+
         Alert.alert('Sucesso!', 'Sua avaliação foi publicada.');
     };
 
     const calculateAverageRating = () => {
         if (reviews.length === 0) return game?.rating || 0;
-        
+
         const total = reviews.reduce((sum, review) => sum + review.rating, 0);
         return total / reviews.length;
     };
@@ -176,7 +186,7 @@ export default function GameDetail() {
     const renderStars = (rating: number, interactive = false, size: 'small' | 'large' = 'small') => {
         const stars = [];
         const starSize = size === 'large' ? 32 : 20;
-        
+
         for (let i = 1; i <= 5; i++) {
             stars.push(
                 <TouchableOpacity
@@ -191,7 +201,7 @@ export default function GameDetail() {
                 </TouchableOpacity>
             );
         }
-        
+
         return (
             <View style={styles.starsContainer}>
                 {stars}
@@ -207,14 +217,14 @@ export default function GameDetail() {
     const renderGameHeader = (game: Game) => {
         if (game.image) {
             return (
-                <Image 
-                    source={{ uri: game.image }} 
+                <Image
+                    source={{ uri: game.image }}
                     style={styles.headerImage}
                     resizeMode="cover"
                 />
             );
         }
-        
+
         return (
             <View style={styles.headerIcon}>
                 <View style={styles.gameIcon}>
@@ -438,7 +448,6 @@ export default function GameDetail() {
                         <Text style={styles.description}>{game.description}</Text>
                     </View>
 
-                    {/* Avaliação do Usuário - AGORA ABAIXO DO "SOBRE O JOGO" */}
                     <View style={styles.section}>
                         <Text style={styles.sectionTitle}>Sua Avaliação</Text>
                         <View style={styles.ratingSection}>
@@ -446,16 +455,24 @@ export default function GameDetail() {
                                 {hasRated ? 'Sua nota:' : 'Dê sua nota:'}
                             </Text>
                             {renderStars(userRating, true, 'large')}
-                            
+
                             {hasRated && !showReviewForm && (
-                                <TouchableOpacity 
-                                    style={styles.changeRatingButton}
-                                    onPress={() => setShowReviewForm(true)}
-                                >
-                                    <Text style={styles.changeRatingText}>
-                                        {userRating > 0 ? 'Escrever comentário' : 'Avaliar jogo'}
-                                    </Text>
-                                </TouchableOpacity>
+                                <View style={styles.ratingActions}>
+                                    <TouchableOpacity
+                                        style={styles.changeRatingButton}
+                                        onPress={() => setShowReviewForm(true)}
+                                    >
+                                        <Text style={styles.changeRatingText}>
+                                            {userRating > 0 ? 'Escrever comentário' : 'Avaliar jogo'}
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.removeRatingButton}
+                                        onPress={removeRating}
+                                    >
+                                        <Text style={styles.removeRatingText}>Remover Avaliação</Text>
+                                    </TouchableOpacity>
+                                </View>
                             )}
 
                             {showReviewForm && (
@@ -473,13 +490,13 @@ export default function GameDetail() {
                                         numberOfLines={4}
                                     />
                                     <View style={styles.reviewFormActions}>
-                                        <TouchableOpacity 
+                                        <TouchableOpacity
                                             style={styles.cancelButton}
                                             onPress={() => setShowReviewForm(false)}
                                         >
                                             <Text style={styles.cancelButtonText}>Cancelar</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity 
+                                        <TouchableOpacity
                                             style={styles.submitButton}
                                             onPress={submitReview}
                                         >
@@ -489,18 +506,6 @@ export default function GameDetail() {
                                 </View>
                             )}
                         </View>
-
-                        {/* Botão "Adicionar à Minha Lista" AGORA AQUI */}
-                        <View style={styles.actions}>
-                            <TouchableOpacity
-                                style={styles.primaryButton}
-                                onPress={toggleSaveGame}
-                            >
-                                <Text style={styles.primaryButtonText}>
-                                    {saved ? 'Remover da Minha Lista' : 'Adicionar à Minha Lista'}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
                     </View>
 
                     {/* Reviews dos Usuários */}
@@ -508,7 +513,7 @@ export default function GameDetail() {
                         <Text style={styles.sectionTitle}>
                             Avaliações da Comunidade ({reviews.length})
                         </Text>
-                        
+
                         {reviews.length === 0 ? (
                             <Text style={styles.noReviews}>
                                 Seja o primeiro a avaliar este jogo!
@@ -538,7 +543,6 @@ export default function GameDetail() {
                             </View>
                         )}
 
-                        {/* Paginação para reviews */}
                         {reviews.length > reviewsPerPage && renderPagination()}
                     </View>
                 </ScrollView>
