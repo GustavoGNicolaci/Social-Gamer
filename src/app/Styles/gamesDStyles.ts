@@ -207,7 +207,7 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-    
+
     ratingSection: {
         alignItems: 'center',
         padding: 20,
@@ -254,5 +254,182 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '500',
     },
-    
+
+    reviewCount: {
+        fontSize: 14,
+        color: '#888',
+        marginTop: 8,
+    },
+
+    reviewForm: {
+        marginTop: 16,
+        width: '100%',
+    },
+
+    reviewFormLabel: {
+        fontSize: 16,
+        color: '#ffffff',
+        marginBottom: 8,
+        fontWeight: '500',
+    },
+
+    commentInput: {
+        backgroundColor: '#2a2a2a',
+        borderWidth: 1,
+        borderColor: '#333',
+        borderRadius: 8,
+        padding: 12,
+        color: '#ffffff',
+        fontSize: 14,
+        minHeight: 100,
+        textAlignVertical: 'top',
+    },
+
+    reviewFormActions: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        gap: 12,
+        marginTop: 12,
+    },
+
+    cancelButton: {
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        borderRadius: 6,
+        borderWidth: 1,
+        borderColor: '#6200ee',
+    },
+
+    cancelButtonText: {
+        color: '#6200ee',
+        fontSize: 14,
+        fontWeight: '500',
+    },
+
+    submitButton: {
+        backgroundColor: '#6200ee',
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        borderRadius: 6,
+    },
+
+    submitButtonText: {
+        color: '#ffffff',
+        fontSize: 14,
+        fontWeight: '500',
+    },
+
+    reviewsList: {
+        gap: 16,
+    },
+
+    reviewItem: {
+        backgroundColor: '#1a1a1a',
+        padding: 16,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: '#333',
+    },
+
+    reviewHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        marginBottom: 12,
+    },
+
+    reviewUserInfo: {
+        flex: 1,
+    },
+
+    reviewUserName: {
+        fontSize: 16,
+        color: '#ffffff',
+        fontWeight: '500',
+        marginBottom: 4,
+    },
+
+    reviewDate: {
+        fontSize: 12,
+        color: '#888',
+    },
+
+    reviewComment: {
+        fontSize: 14,
+        color: '#cccccc',
+        lineHeight: 20,
+    },
+
+    noReviews: {
+        textAlign: 'center',
+        color: '#888',
+        fontStyle: 'italic',
+        padding: 20,
+    },
+
+    // Estilos para paginação
+    paginationContainer: {
+        alignItems: 'center',
+        marginTop: 24,
+        marginBottom: 16,
+        paddingHorizontal: 20,
+    },
+
+    paginationInfo: {
+        color: '#cccccc',
+        fontSize: 14,
+        marginBottom: 12,
+        textAlign: 'center',
+    },
+
+    paginationButtons: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 4,
+    },
+
+    pageButton: {
+        backgroundColor: '#2a2a2a',
+        width: 40,
+        height: 40,
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#333',
+    },
+
+    pageButtonActive: {
+        backgroundColor: '#6200ee',
+        borderColor: '#8133ff',
+    },
+
+    pageButtonDisabled: {
+        backgroundColor: '#1a1a1a',
+        borderColor: '#333',
+    },
+
+    pageButtonText: {
+        color: '#ffffff',
+        fontSize: 14,
+        fontWeight: '500',
+    },
+
+    pageButtonTextActive: {
+        color: '#ffffff',
+        fontWeight: 'bold',
+    },
+
+    pageButtonTextDisabled: {
+        color: '#666666',
+    },
+
+    pageEllipsis: {
+        color: '#888888',
+        fontSize: 14,
+        marginHorizontal: 8,
+        width: 20,
+        textAlign: 'center',
+    },
+
 });
