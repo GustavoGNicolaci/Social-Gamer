@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform
 import { useRouter } from 'expo-router';
 import { styles } from './Styles/loginStyles';
 import { Navbar } from '@/components/navbar';
+import { authService } from '@/services/authService';
 
 export default function SignUp() {
     const router = useRouter();
@@ -23,22 +24,50 @@ export default function SignUp() {
             return;
         }
 
+        if (password.length < 8) {
+            Alert.alert('Erro', 'A senha deve ter pelo menos 8 caracteres');
+            return;
+        }
+
         setLoading(true);
-        
-        {/* Teste */}
+
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            const result = await authService.register({
+                username,
+                email: email.toLowerCase(),
+                password,
+                confirmPassword,
+                bio: "",
+                avatar: ""
+            });
+
+            if (result.status === 400) {
+                Alert.alert('Erro', result.message || 'Dados de usuário inválidos');
+                return;
+            }
+
+            if (result.status === 409) {
+                Alert.alert('Erro', result.message || 'Usuário já existe com este e-mail');
+                return;
+            }
+
+            if (result.status === 500) {
+                Alert.alert('Erro', result.message || 'Erro interno do servidor');
+                return;
+            }
+
             Alert.alert('Sucesso', 'Cadastro realizado com sucesso!');
-            router.push('/');
+            router.push('/login');
         } catch (error) {
-            Alert.alert('Erro', 'Erro ao realizar cadastro');
+            console.error('Erro no cadastro:', error);
+            Alert.alert('Erro', 'Erro ao conectar com o servidor');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <KeyboardAvoidingView 
+        <KeyboardAvoidingView
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
@@ -59,7 +88,7 @@ export default function SignUp() {
                         keyboardType="email-address"
                         autoCapitalize="none"
                     />
-                    
+
                     <TextInput
                         style={styles.input}
                         placeholder="Nome de usuário"
@@ -68,7 +97,7 @@ export default function SignUp() {
                         onChangeText={setUsername}
                         autoCapitalize="none"
                     />
-                    
+
                     <TextInput
                         style={styles.input}
                         placeholder="Senha"
@@ -89,7 +118,7 @@ export default function SignUp() {
                         autoCapitalize="none"
                     />
 
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={[
                             styles.loginButton,
                             loading && styles.loginButtonDisabled
@@ -102,9 +131,9 @@ export default function SignUp() {
                         </Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={styles.signUpLink}
-                        onPress={() => router.back()}
+                        onPress={() => router.push('/login')}
                     >
                         <Text style={styles.signUpText}>
                             Já tem conta? <Text style={styles.signUpHighlight}>Faça login</Text>
